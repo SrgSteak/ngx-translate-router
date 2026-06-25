@@ -41,6 +41,7 @@ Demo project can be found under sub folder `src`.
 
 # Table of contents:
 - [Development of Package](#development)
+- [Known limitations](#limitations)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Initialize module](#initialize-module)
@@ -83,6 +84,26 @@ ng build ngx-translate-router-scully-plugin --watch
 # build and run example project
 ng s
 ```
+
+## Limitations
+angular.json flag "prerender" to prerender static routes during build time fails due to inability to use the http translate loader (no running server, no responses) ->
+fails with
+```
+ERROR Ot {
+...
+statusText: 'Unknown Error',
+url: 'http://localhost:4200/assets/locales.json',
+...
+}
+Prerendered 0 static routes.
+Application bundle generation failed. [32.400 seconds]
+
+✘ [ERROR] An error occurred while extracting routes.
+
+catch clause variable is not an Error instance
+
+```
+Workaround: set prerender: false until fix has been implemented.
 
 ## Installation
 

@@ -12,7 +12,6 @@ import {
 } from '@gilsdav/ngx-translate-router';
 
 import { LocalizeRouterHttpLoader } from '@gilsdav/ngx-translate-router-http-loader';
-
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { baseMatcher } from './matcher/matcher.module';
