@@ -30,9 +30,9 @@ Based on and extension of [ngx-translate](https://github.com/ngx-translate/core)
 | 16              | 7.0.0            | 2.0.0       | legacy | minimum angular 16      |
 | 17              | 7.1.0            | 2.0.0       | legacy | optional standalone API |
 | 18              | 7.2.1            | 2.0.0       | legacy |  |
-| 19              | 7.2.1            | 2.0.0       | legacy |  |
-| 20              | 7.2.1            | 2.0.0       | legacy |  |
-| 21              | 8.0.0            | 2.0.0       | legacy |  |
+| 19              | 8.0.0            | 2.0.0       | legacy |  |
+| 20              | 9.0.0            | 2.0.0       | legacy |  |
+| 21              | 10.0.0           | 2.0.0       | legacy |  |
 
 
 Demo project can be found under sub folder `src`.
