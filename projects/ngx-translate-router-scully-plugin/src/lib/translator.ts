@@ -28,6 +28,9 @@ class MyLocationStrategy extends LocationStrategy {
   replaceState(state: any, title: string, url: string, queryParams: string): void {
     throw new Error('replaceState not implemented.');
   }
+  getState(): unknown {
+    throw new Error('getState not implemented');
+  }
   forward(): void {
     throw new Error('forward not implemented.');
   }
@@ -44,7 +47,7 @@ class MyLocationStrategy extends LocationStrategy {
 
 }
 
-const parser = new ManualParserLoader(translateService, new Location(new MyLocationStrategy(), null), {
+const parser = new ManualParserLoader(translateService, new Location(new MyLocationStrategy()), {
   alwaysSetPrefix: true,
   useCachedLang: false,
   defaultLangFunction: () => 'en',

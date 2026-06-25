@@ -4,16 +4,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  standalone: true,
-  imports: [
-    RouterLink,
-    RouterOutlet,
-    LocalizeRouterPipe,
-    TranslateModule
-  ]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    imports: [
+        RouterLink,
+        RouterOutlet,
+        LocalizeRouterPipe,
+        TranslateModule
+    ]
 })
 export class AppComponent implements OnInit {
   title = 'app';

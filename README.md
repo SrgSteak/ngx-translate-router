@@ -40,6 +40,7 @@ Demo project can be found under sub folder `src`.
 > This documentation is for version 1.x.x which requires Angular 6+. If you are migrating from the older version follow [migration guide](https://github.com/Greentube/localize-router/blob/master/MIGRATION_GUIDE.md) to upgrade to latest version.
 
 # Table of contents:
+- [Development of Package](#development)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Initialize module](#initialize-module)
@@ -66,6 +67,22 @@ Demo project can be found under sub folder `src`.
     - [LocalizeRouterService](#localizerouterservice)
     - [LocalizeParser](#localizeparser)
 - [License](#license)
+
+
+## Development
+Download project and open root folder (ngx-translate-router). Build the packages (as described in the angular.json, marked with "library")
+```
+# get angular and other dependecies ready
+npm install
+
+# build and get needed packages ready. start with --watch on other terminal tabs to get changes during development.
+ng build ngx-translate-router --watch
+ng build ngx-translate-router-http-loader --watch
+ng build ngx-translate-router-scully-plugin --watch
+
+# build and run example project
+ng s
+```
 
 ## Installation
 
@@ -129,7 +146,7 @@ You are also able to import `LocalizeRouterPipe` into your standalone components
 
 #### Http loader
 
-In order to use Http loader for config files, you must include `@gilsdav/ngx-translate-router-http-loader` package and use its `LocalizeRouterHttpLoader`. 
+In order to use Http loader for config files, you must include `@gilsdav/ngx-translate-router-http-loader` package and use its `LocalizeRouterHttpLoader`.
 
 ```ts
 import {BrowserModule} from "@angular/platform-browser";
@@ -190,9 +207,9 @@ export class ChildModule { }
        }
    })
    ```
-   
+
 #### Initialization config
-Apart from providing routes which are mandatory, and parser loader you can provide additional configuration for more granular setting of `@gilsdav/ngx-translate-router`. More information at [LocalizeRouterConfig](#localizerouterconfig). 
+Apart from providing routes which are mandatory, and parser loader you can provide additional configuration for more granular setting of `@gilsdav/ngx-translate-router`. More information at [LocalizeRouterConfig](#localizerouterconfig).
 
 ### Server side
 
@@ -200,12 +217,12 @@ In order to use `@gilsdav/ngx-translate-router` in Angular universal application
 
 1. [Initialize the module](#initialize-module)
 2. In case you opted for initializing with Http loader, you need to take care of static file location. `@gilsdav/ngx-translate-router-http-loader` by default will try loading the config file from `assets/locales.json`. This is a relative path which won't work with SSR. You could use one of the following approaches,
-    1. Creating a factory function to override the default location with an absolute URL 
+    1. Creating a factory function to override the default location with an absolute URL
         ```ts
         export function localizeLoaderFactory(translate: TranslateService, location: Location, settings: LocalizeRouterSettings, http: HttpClient) {
           return new LocalizeRouterHttpLoader(translate, location, settings, http, 'http://example.com/assets/locales.json');
         }
-         
+
         LocalizeRouterModule.forRoot(routes, {
           parser: {
             provide: LocalizeParser,
@@ -226,13 +243,13 @@ In order to use `@gilsdav/ngx-translate-router` in Angular universal application
           }
           return next.handle(request);
         }
-        
+
         ```
 3. Let node server knows about the new routes:
     ```ts
     let fs = require('fs');
     let data: any = JSON.parse(fs.readFileSync(`src/assets/locales.json`, 'utf8'));
-     
+
     app.get('/', ngApp);
     data.locales.forEach(route => {
       app.get(`/${route}`, ngApp);
@@ -243,17 +260,17 @@ In order to use `@gilsdav/ngx-translate-router` in Angular universal application
 
     ```ts
     app.use(cookieParser());
-    
+
     app.get('/', (req, res) => {
       const defaultLang = 'de';
       const lang = req.acceptsLanguages('de', 'en');
       const cookieLang = req.cookies.LOCALIZE_DEFAULT_LANGUAGE; // This is the default name of cookie
-    
+
       const definedLang = cookieLang || lang || defaultLang;
-    
+
       res.redirect(301, `/${definedLang}/`);
     });
-    ``` 
+    ```
 
 **Gotchas**
 
@@ -294,8 +311,8 @@ imports: [
 ### How it works
 
 `@gilsdav/ngx-translate-router` intercepts Router initialization and translates each `path` and `redirectTo` path of Routes.
-The translation process is done with [ngx-translate](https://github.com/ngx-translate/core). In order to separate 
-router translations from normal application translations we use `prefix`. Default value for prefix is `ROUTES.`. Finally, in order to avoid accidentally translating a URL segment that should not be translated, you can optionally use `escapePrefix` so the prefix gets stripped and the segment doesn't get translated. Default `escapePrefix` is unset. 
+The translation process is done with [ngx-translate](https://github.com/ngx-translate/core). In order to separate
+router translations from normal application translations we use `prefix`. Default value for prefix is `ROUTES.`. Finally, in order to avoid accidentally translating a URL segment that should not be translated, you can optionally use `escapePrefix` so the prefix gets stripped and the segment doesn't get translated. Default `escapePrefix` is unset.
 
 ```
 'home' -> 'ROUTES.home'
@@ -314,9 +331,9 @@ Upon every route change `@gilsdav/ngx-translate-router` kicks in to check if the
 http://yourpath/home -> http://yourpath/en/home
 ```
 
-If no language is provided in the url path, application uses: 
+If no language is provided in the url path, application uses:
 * cached language in LocalStorage/SessionStorage/Cookie (browser only) or
-* current language of the browser (browser only) or 
+* current language of the browser (browser only) or
 * first locale in the config
 
 Make sure you therefore place most common language (e.g. 'en') as a first string in the array of locales.
@@ -358,7 +375,7 @@ Both `languageOfBrowser` and `languageFromUrl` are cross-checked with locales fr
 #### Path discrimination
 
 Do you use same path to load multiple lazy-loaded modules and you have wrong component tree ?
-`discriminantPathKey` will help ngx-translate-router to generate good component tree. 
+`discriminantPathKey` will help ngx-translate-router to generate good component tree.
 
 ```ts
   {
@@ -408,9 +425,9 @@ This limitation is because we can not determine the language from a wrong url.
 #### Matcher params translation
 
 ##### Configure routes
-In case you want to translate some params of matcher, `localizeMatcher` provides you the way to do it through a function per each param. Make sure that the key is the same as the one used in the navigate path (example: if the function returns "map", it must be contained in the not localized path: `[routerLink]="['/matcher', 'aaa', 'map'] | localize"`) otherwise you will not be able to use `routerLinkActiveOptions`. 
+In case you want to translate some params of matcher, `localizeMatcher` provides you the way to do it through a function per each param. Make sure that the key is the same as the one used in the navigate path (example: if the function returns "map", it must be contained in the not localized path: `[routerLink]="['/matcher', 'aaa', 'map'] | localize"`) otherwise you will not be able to use `routerLinkActiveOptions`.
 
-Example: 
+Example:
 
 ```ts
 {
@@ -444,7 +461,7 @@ export function shouldTranslateMap(param: string): string {
 }
 ```
 
-The output of the function should be `falsy` if the param must not be translated or should return the `key` (without prefix) you want to use when translating if you want to translate the param. 
+The output of the function should be `falsy` if the param must not be translated or should return the `key` (without prefix) you want to use when translating if you want to translate the param.
 
 Notice that any function that you use in `localizeMatcher` must be exported to be compatible with AOT.
 
@@ -510,7 +527,7 @@ class MyComponent {
 
     myMethod() {
         let translatedPath: any = this.localize.translateRoute('about/me');
-       
+
         // do something with translated path
         // e.g. this.router.navigate([translatedPath]);
     }
@@ -537,16 +554,16 @@ export function localizeLoaderFactory(translate: TranslateService, location: Loc
 #### Properties
 - `parser`: Provider for loading of LocalizeParser. Default value is `StaticParserLoader`.
 - `useCachedLang`: boolean. Flag whether default language should be cached. Default value is `true`.
-- `alwaysSetPrefix`: boolean. Flag whether language should always prefix the url. Default value is `true`.  
+- `alwaysSetPrefix`: boolean. Flag whether language should always prefix the url. Default value is `true`.
   When value is `false`, prefix will not be used for for default language (this includes the situation when there is only one language).
 - `cacheMechanism`: CacheMechanism.LocalStorage || CacheMechanism.SessionStorage || CacheMechanism.Cookie. Default value is `CacheMechanism.LocalStorage`.
 - `cacheName`: string. Name of cookie/local store. Default value is `LOCALIZE_DEFAULT_LANGUAGE`.
 - `defaultLangFunction`: (languages: string[], cachedLang?: string, browserLang?: string) => string. Override method for custom logic for picking default language, when no language is provided via url. Default value is `undefined`.
-- `cookieFormat`: string. Format of cookie to store. Default value is `'{{value}};{{expires}}'`. (Extended format e.g : `'{{value}};{{expires}};path=/'`) 
+- `cookieFormat`: string. Format of cookie to store. Default value is `'{{value}};{{expires}}'`. (Extended format e.g : `'{{value}};{{expires}};path=/'`)
   - `{{value}}` will be replaced by the value to save (`CACHE_NAME=language`). Must be present into format.
   - `{{expires}}` will be replaced by `expires=currentDate+30days`. Optional if you want session cookie.
     - you can configure the number of expiration days by using this synthax: `{{expires:365}}`. It will result as `expires=currentDate+365days`.
-  - results to : `LOCALIZE_DEFAULT_LANGUAGE=en;expires=Wed, 11 Sep 2019 21:19:23 GMT`. 
+  - results to : `LOCALIZE_DEFAULT_LANGUAGE=en;expires=Wed, 11 Sep 2019 21:19:23 GMT`.
 ### LocalizeRouterService
 #### Properties:
 - `routerEvents`: An EventEmitter to listen to language change event
@@ -568,7 +585,7 @@ localizeService.translateRoute('about'); // -> 'ueber-uns' (e.g. for German lang
 ```
 - `changeLanguage(lang: string, extras?: NavigationExtras, useNavigateMethod?: boolean)`: Translates current url to given language and changes the application's language.
 `extras` will be passed down to Angular Router navigation methods.
-`userNavigateMethod` tells localize-router to use `navigate` rather than `navigateByUrl` method.  
+`userNavigateMethod` tells localize-router to use `navigate` rather than `navigateByUrl` method.
 For german language and route defined as `:lang/users/:user_name/profile`
 ```
 yoursite.com/en/users/John%20Doe/profile -> yoursite.com/de/benutzer/John%20Doe/profil
@@ -608,7 +625,7 @@ export const appInitializerFactory = (injector: Injector) => {
 - `urlPrefix`: Language prefix for current language. Empty string if `alwaysSetPrefix=false` and `currentLang` is same as default language.
 
 #### Methods:
-- `translateRoutes(language: string): Observable<any>`: Translates all the routes and sets language and current 
+- `translateRoutes(language: string): Observable<any>`: Translates all the routes and sets language and current
 language across the application.
 - `translateRoute(path: string): string`: Translates single path
 - `getLocationLang(url?: string): string`: Extracts language from current url if matching defined locales
