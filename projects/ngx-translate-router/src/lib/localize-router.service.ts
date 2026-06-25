@@ -255,7 +255,7 @@ export class LocalizeRouterService {
    * Drop the current Navigation
    */
   private cancelCurrentNavigation() {
-    const currentNavigation = this.router.getCurrentNavigation();
+    const currentNavigation = this.router.currentNavigation();
     const url = this.router.serializeUrl(currentNavigation.extractedUrl);
     (this.router.events as Subject<Event>).next(new NavigationCancel(currentNavigation.id, url, ''));
     (this.router as any).navigationTransitions.transitions.next({
