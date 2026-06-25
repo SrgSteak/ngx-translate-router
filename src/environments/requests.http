@@ -1,0 +1,20 @@
+## Helper File for debugging, lets you easily execute HTTP Requests against your (node) server
+## without worrying about browser cache, Service Workers or others.
+## See https://github.com/Huachao/vscode-restclient for more info
+
+@domain = http://localhost:4000
+
+# Check SSR Response
+###
+GET {{domain}}
+###
+
+# Check for language settings
+###
+GET {{domain}}/assets/locales.json
+###
+
+# Check language response
+###
+GET {{domain}}/assets/locales/en.json
+###

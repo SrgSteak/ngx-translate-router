@@ -11,7 +11,7 @@
     "test": "npx ng test",
     "lint": "npx ng lint",
     "e2e": "npx ng e2e",
-    "build:ssr:ngx-translate-router-demo": "npm run build -- ngx-translate-router-demo",
+    "build:ssr:ngx-translate-router-demo": "npx ng build ngx-translate-router-demo",
     "serve:ssr:ngx-translate-router-demo": "node dist/ngx-translate-router-demo/server/server.mjs"
   },
   "private": true,

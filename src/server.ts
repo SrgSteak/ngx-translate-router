@@ -12,7 +12,7 @@ export function app(): express.Express {
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
-  const commonEngine = new CommonEngine({ allowedHosts: ['localhost']});
+  const commonEngine = new CommonEngine({ allowedHosts: ['*', '127.0.0.1', 'localhost']});
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
