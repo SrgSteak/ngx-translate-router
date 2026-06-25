@@ -31,7 +31,7 @@ export class GilsdavReuseStrategy implements RouteReuseStrategy {
     // console.log('shouldReuseRoute', future && curr ? this.getKey(future) === this.getKey(curr) : false);
     return future && curr ? this.getKey(future) === this.getKey(curr) : false;
   }
-  private getKey(route: ActivatedRouteSnapshot) {
+  private getKey(route: ActivatedRouteSnapshot): string {
     // console.log(route.parent.component.toString());
     if (route.firstChild && route.firstChild.routeConfig && route.firstChild.routeConfig.path &&
         route.firstChild.routeConfig.path.indexOf('**') !== -1) { // WildCard

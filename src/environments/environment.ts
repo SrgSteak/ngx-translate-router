@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  locales: 'http://localhost:4200'
+  locales: 'http://localhost:4200' // change me to used port (4000 on default ssr)
 };
 
 /*
