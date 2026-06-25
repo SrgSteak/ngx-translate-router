@@ -1,11 +1,5 @@
-# ngx-translate-router (deprecated)
-> An implementation of routes localization for Angular.
-
-> [!CAUTION]
-> It is with a heavy heart that I must announce (despite the fact that you have probably already noticed) that I'm no longer able to maintain this library in my free time due to personal reasons.
-> It is entirely open-source with an MIT license, so I would be happy to see someone else take it over. Thank you to all the users for these fantastic years.
-> Advice for the next person: don't do it alone.
-
+# ngx-translate-router
+> An implementation of routes localization for Angular. Fork on gilsdav, intended to preserve same functionality but with support for Angular v21, v22 and beyond.
 
 * ngx-translate-router
 [![npm version](https://badge.fury.io/js/%40gilsdav%2Fngx-translate-router.svg)](https://badge.fury.io/js/%40gilsdav%2Fngx-translate-router)
@@ -35,7 +29,11 @@ Based on and extension of [ngx-translate](https://github.com/ngx-translate/core)
 | 15.1            | 6.1.0            | 2.0.0       | legacy | minimum angular 15.1.0  |
 | 16              | 7.0.0            | 2.0.0       | legacy | minimum angular 16      |
 | 17              | 7.1.0            | 2.0.0       | legacy | optional standalone API |
-| 18              | 7.2.1            | 2.0.0       | active |  |
+| 18              | 7.2.1            | 2.0.0       | legacy |  |
+| 19              | 7.2.1            | 2.0.0       | legacy |  |
+| 20              | 7.2.1            | 2.0.0       | legacy |  |
+| 21              | 8.0.0            | 2.0.0       | legacy |  |
+
 
 Demo project can be found under sub folder `src`.
 
