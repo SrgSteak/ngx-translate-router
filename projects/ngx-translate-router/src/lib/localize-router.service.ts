@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-// import { Location } from '@angular/common';
 import {
   Router, NavigationStart, ActivatedRouteSnapshot, NavigationExtras, ActivatedRoute,
   Event, NavigationCancel, Routes

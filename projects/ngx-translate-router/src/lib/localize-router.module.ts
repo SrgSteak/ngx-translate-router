@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { LocalizeRouterPipe } from './localize-router.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ALWAYS_SET_PREFIX,
   CACHE_MECHANISM, CACHE_NAME, DEFAULT_LANG_FUNCTION, LOCALIZE_ROUTER_FORROOT_GUARD,
